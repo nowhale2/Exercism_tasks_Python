@@ -1,0 +1,97 @@
+1. Уберите повторяющиеся ингредиенты
+Рецепты для мероприятия были взяты из разных источников, и в их ингредиентах есть повторяющиеся (или более) позиции — не хотелось бы в итоге купить лишнего! Прежде чем отправляться за покупками и готовить, нужно «очистить» список ингредиентов каждого блюда.
+
+Реализуйте функцию clean_ingredients(<dish_name>, <dish_ingredients>), которая принимает название блюда и list ингредиентов. Эта функция должна возвращать tuple с названием блюда в качестве первого элемента и set ингредиентов без дубликатов.
+
+>>> clean_ingredients('Punjabi-Style Chole', ['onions', 'tomatoes', 'ginger paste', 'garlic paste', 'ginger paste', 'vegetable oil', 'bay leaves', 'cloves', 'cardamom', 'cilantro', 'peppercorns', 'cumin powder', 'chickpeas', 'coriander powder', 'red chili powder', 'ground turmeric', 'garam masala', 'chickpeas', 'ginger', 'cilantro'])
+
+>>> ('Punjabi-Style Chole', {'garam masala', 'bay leaves', 'ground turmeric', 'ginger', 'garlic paste', 'peppercorns', 'ginger paste', 'red chili powder', 'cardamom', 'chickpeas', 'cumin powder', 'vegetable oil', 'tomatoes', 'coriander powder', 'onions', 'cilantro', 'cloves'})
+
+
+2. Коктейли и безалкогольные коктейли
+На мероприятии будут представлены как коктейли, так и «безалкогольные коктейли» — смешанные напитки без алкоголя. Убедитесь, что «безалкогольные коктейли» действительно не содержат алкоголя, а в коктейлях есть алкоголь.
+
+Реализуйте функцию check_drinks(<drink_name>, <drink_ingredients>), которая принимает название напитка и list ингредиентов. Функция должна возвращать название напитка с добавлением слова «безалкогольный», если в напитке нет алкогольных ингредиентов, и название напитка с добавлением слова «коктейль», если в напитке есть алкоголь. В рамках этого упражнения в коктейлях будет использоваться только алкоголь из константы ALCOHOLS в sets_categories_data.py:
+
+>>> from sets_categories_data import ALCOHOLS 
+
+>>> check_drinks('Honeydew Cucumber', ['honeydew', 'coconut water', 'mint leaves', 'lime juice', 'salt', 'english cucumber'])
+...
+'Honeydew Cucumber Mocktail'
+
+>>> check_drinks('Shirley Tonic', ['cinnamon stick', 'scotch', 'whole cloves', 'ginger', 'pomegranate juice', 'sugar', 'club soda'])
+...
+'Shirley Tonic Cocktail'
+
+
+3. Разделите блюда на категории
+В списке гостей есть посетители с разными диетическими предпочтениями, и вашему персоналу нужно будет разделить блюда на веганские, вегетарианские, палео, кето и всеядные. Блюдо относится к категории только в том случае, если все его ингредиенты входят в список ингредиентов этой категории.
+
+Реализуйте функцию categorize_dish(<dish_name>, <dish_ingredients>), которая принимает название блюда и set его ингредиентов. Функция должна возвращать строку с dish name: <CATEGORY> (какую категорию блюд представляет блюдо). Все указанные блюда будут «вписываться» в одну из категорий, импортированных из sets_categories_data.py (ВЕГАНСТВО, ВЕГЕТАРИАНСТВО, ПАЛЕО, КЕТО или ОЛЛОДАКТЕРИЯ).
+
+>>> from sets_categories_data import VEGAN, VEGETARIAN, PALEO, KETO, OMNIVORE
+
+
+>>> categorize_dish('Sticky Lemon Tofu', {'tofu', 'soy sauce', 'salt', 'black pepper', 'cornstarch', 'vegetable oil', 'garlic', 'ginger', 'water', 'vegetable stock', 'lemon juice', 'lemon zest', 'sugar'})
+...
+'Sticky Lemon Tofu: VEGAN'
+
+>>> categorize_dish('Shrimp Bacon and Crispy Chickpea Tacos with Salsa de Guacamole', {'shrimp', 'bacon', 'avocado', 'chickpeas', 'fresh tortillas', 'sea salt', 'guajillo chile', 'slivered almonds', 'olive oil', 'butter', 'black pepper', 'garlic', 'onion'})
+...
+'Shrimp Bacon and Crispy Chickpea Tacos with Salsa de Guacamole: OMNIVORE'
+
+
+4. Обозначьте продукты, вызывающие аллергию, и продукты, которые нельзя употреблять
+У некоторых гостей есть аллергия и дополнительные ограничения в питании. Эти ингредиенты необходимо обозначить/промаркировать на каждом блюде, чтобы они не вызывали проблем.
+
+Реализуйте функцию tag_special_ingredients(<dish>), которая принимает tuple с названием блюда в первой позиции и list или set ингредиентов для этого блюда во второй позиции. Возвращайте название блюда, а затем set ингредиентов, которые требуют особого упоминания в описании блюда. Ингредиенты блюда внутри list могут повторяться, а могут и не повторяться. В рамках этого упражнения все аллергены и особые ингредиенты, которые необходимо указывать, находятся в константе SPECIAL_INGREDIENTS, импортированной из sets_categories_data.py.
+
+>>> from sets_categories_data import SPECIAL_INGREDIENTS
+
+>>> tag_special_ingredients(('Ginger Glazed Tofu Cutlets', ['tofu', 'soy sauce', 'ginger', 'corn starch', 'garlic', 'brown sugar', 'sesame seeds', 'lemon juice']))
+...
+('Ginger Glazed Tofu Cutlets', {'garlic','soy sauce','tofu'})
+
+>>> tag_special_ingredients(('Arugula and Roasted Pork Salad', ['pork tenderloin', 'arugula', 'pears', 'blue cheese', 'pine nuts', 'balsamic vinegar', 'onions', 'black pepper']))
+...
+('Arugula and Roasted Pork Salad', {'pork tenderloin', 'blue cheese', 'pine nuts', 'onions'})
+
+
+5. Составьте «основной список» ингредиентов
+Перед тем как сделать заказ и отправиться за покупками, вам нужно составить «основной список» ингредиентов для всех блюд из меню (количество ингредиентов указать позже).
+
+Реализуйте функцию compile_ingredients(<dishes>), которая принимает list блюд и возвращает набор всех ингредиентов, входящих в каждое из перечисленных блюд. Каждое отдельное блюдо представлено своим set набором ингредиентов.
+
+dishes = [ {'tofu', 'soy sauce', 'ginger', 'corn starch', 'garlic', 'brown sugar', 'sesame seeds', 'lemon juice'},
+           {'pork tenderloin', 'arugula', 'pears', 'blue cheese', 'pine nuts',
+           'balsamic vinegar', 'onions', 'black pepper'},
+           {'honeydew', 'coconut water', 'mint leaves', 'lime juice', 'salt', 'english cucumber'}]
+
+>>> compile_ingredients(dishes)
+...
+{'arugula', 'brown sugar', 'honeydew', 'coconut water', 'english cucumber', 'balsamic vinegar', 'mint leaves', 'pears', 'pork tenderloin', 'ginger', 'blue cheese', 'soy sauce', 'sesame seeds', 'black pepper', 'garlic', 'lime juice', 'corn starch', 'pine nuts', 'lemon juice', 'onions', 'salt', 'tofu'}
+
+
+6. Достаньте закуски для подачи на подносах
+Хозяева составили для вас список блюд, которые они хотели бы подать в качестве закусок на подносах. Вам нужно выбрать их из основного списка блюд, которые готовятся в больших порциях.
+
+Реализуйте функцию separate_appetizers(<dishes>, <appetizers>), которая принимает list названий блюд и list названий закусок. Функция должна возвращать list названий блюд без названий закусок. В <dishes> или <appetizers> list могут быть дубликаты, которые необходимо удалить.
+
+dishes =    ['Avocado Deviled Eggs','Flank Steak with Chimichurri and Asparagus', 'Kingfish Lettuce Cups',
+             'Grilled Flank Steak with Caesar Salad','Vegetarian Khoresh Bademjan','Avocado Deviled Eggs',
+             'Barley Risotto','Kingfish Lettuce Cups']
+          
+appetizers = ['Kingfish Lettuce Cups','Avocado Deviled Eggs','Satay Steak Skewers',
+              'Dahi Puri with Black Chickpeas','Avocado Deviled Eggs','Asparagus Puffs',
+              'Asparagus Puffs']
+              
+>>> separate_appetizers(dishes, appetizers)
+...
+['Vegetarian Khoresh Bademjan', 'Barley Risotto', 'Flank Steak with Chimichurri and Asparagus', 
+ 'Grilled Flank Steak with Caesar Salad']
+
+ 
+7. Найдите ингредиенты, которые используются только в одном рецепте
+В каждой категории (веганство, вегетарианство, палеодиета, кетодиета, всеядность) выберите ингредиенты, которые используются только в одном блюде. За этими «одиночными» ингредиентами будет закреплен отдельный покупатель, чтобы их не забыли в спешке.
+
+Реализуйте функцию singleton_ingredients(<dishes>, <INTERSECTIONS>), которая принимает list блюд и <CATEGORY>_INTERSECTIONS константу для той же категории. Каждое блюдо представлено set его ингредиентов. Каждый <CATEGORY>_INTERSECTIONS — это set ингредиентов, которые входят в состав более чем одного блюда этой категории. Используя операции над множествами, ваша функция должна возвращать set «уникальных» ингредиентов (ингредиентов, которые входят в состав только одного блюда этой категории).
